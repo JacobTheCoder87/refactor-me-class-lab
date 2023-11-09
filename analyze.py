@@ -27,6 +27,7 @@ df = pd.read_csv('data/raw/shopping_behavior_updated.csv')
 PASummaryStat = df["Purchase Amount (USD)"].describe()
 print("Summary statistics on Purchase Amount (USD)")
 print(PASummaryStat)
+# Adding a empty print line in order to make it look more organized and nice in our terminal.
 print()
 
 # calculate summary statistics on the Age column
@@ -177,6 +178,22 @@ drop_column_on_data = df.drop(columns=["Customer ID", "Discount Applied"])
 
 payment_methods = df.groupby("Payment Method")['Location'].value_counts()
 print(payment_methods)
+print()
+
+#Code we created together in class
+def find_pop_payment(state):
+    payment_methods = df['Payment Method'].unique()
+    usstate = df[df.Location == state]
+
+    most_frequent_method = {}
+
+    for method in payment_methods:
+        most_frequent_method[method] = len(usstate[usstate["Payment Method"] == method])
+
+    print(most_frequent_method)
+
+find_pop_payment("California")
+print()
 
 # Write this updated data out to csv file
 df.to_csv('data/processed/cleaned_data.csv', index=False)
